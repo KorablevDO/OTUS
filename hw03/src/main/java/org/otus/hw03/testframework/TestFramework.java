@@ -12,14 +12,15 @@ import java.util.List;
 public class TestFramework {
     private List<String> list;
 
-    private TestFramework(){}
+    private TestFramework() {
+    }
 
-    public static TestFramework newInstance(){
+    public static TestFramework newInstance() {
         return new TestFramework();
     }
 
-    public TestFramework add(String className){
-        if(this.list == null){
+    public TestFramework add(String className) {
+        if (this.list == null) {
             this.list = new ArrayList<>();
         }
 
@@ -29,7 +30,7 @@ public class TestFramework {
     }
 
     public TestFramework run() {
-        if(this.list != null && this.list.size() != 0){
+        if (this.list != null && this.list.size() != 0) {
             executeTests(this.list);
         } else {
             System.err.println("Not add Test Class name, add Class name.");
@@ -37,8 +38,8 @@ public class TestFramework {
         return null;
     }
 
-    private void executeTests(List<String> list){
-        for(String line : list){
+    private void executeTests(List<String> list) {
+        for (String line : list) {
             Class clazz = null;
 
             try {
@@ -48,10 +49,9 @@ public class TestFramework {
                 continue;
             }
 
-            if(clazz.isAnnotationPresent(Test.class)){
+            if (clazz.isAnnotationPresent(Test.class)) {
                 try {
-                    Object object = clazz.getDeclaredConstructor().newInstance();
-                    execute(object, clazz);
+                    execute(clazz);
                 } catch (InvocationTargetException e) {
                     System.err.println(e.toString());
                 } catch (IllegalAccessException e) {
@@ -67,49 +67,59 @@ public class TestFramework {
         }
     }
 
-
-
-    private void execute(Object object, Class clazz) throws InvocationTargetException, IllegalAccessException {
+    private void execute(Class clazz) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException, InstantiationException {
         Methods testMethods = getExecuteMethods(clazz);
 
         Method after = testMethods.after;
         Method before = testMethods.before;
         List<Method> methodsList = testMethods.methods;
 
-        if(before != null) {
-            before.invoke(object);
-        }
-
-        if(methodsList.size() != 0) {
+        if (methodsList.size() != 0) {
             for (Method method : methodsList) {
+
+                Object object = clazz.getDeclaredConstructor().newInstance();
+
+                try {
+                    if (before != null) {
+                        before.invoke(object);
+                    }
+                } catch (Exception e) {
+                    System.err.println("Error before method: " + method.getName() + " in class: " + clazz.getName());
+                    return;
+                }
+
                 try {
                     method.invoke(object);
-                }catch (Exception e){
-                    System.err.println("Error method: " + method.getName() + " in class: " + clazz.getName());
+                } catch (Exception e) {
+                    System.err.println("Error test method: " + method.getName() + " in class: " + clazz.getName());
+                }
+
+                try {
+                    if (after != null) {
+                        after.invoke(object);
+                    }
+                } catch (Exception e) {
+                    System.err.println("Error after method: " + method.getName() + " in class: " + clazz.getName());
+                    return;
                 }
             }
         } else {
             System.err.println("Not fount Test Method in class.");
         }
-
-        if(after != null){
-            after.invoke(object);
-        }
-
     }
 
-    private Methods getExecuteMethods(Class clazz){
+    private Methods getExecuteMethods(Class clazz) {
         Method[] clazzMethods = clazz.getMethods();
         Methods testMethods = new Methods();
         Method after = null;
         Method before = null;
 
-        for(Method method : clazzMethods){
-            if(method.isAnnotationPresent(Test.class)){
+        for (Method method : clazzMethods) {
+            if (method.isAnnotationPresent(Test.class)) {
                 testMethods.methods.add(method);
-            } else if(method.isAnnotationPresent(After.class)){
+            } else if (method.isAnnotationPresent(After.class)) {
                 after = method;
-            } else if(method.isAnnotationPresent(Before.class)){
+            } else if (method.isAnnotationPresent(Before.class)) {
                 before = method;
             }
         }
@@ -120,7 +130,7 @@ public class TestFramework {
         return testMethods;
     }
 
-    private class Methods{
+    private class Methods {
         List<Method> methods = new ArrayList<>();
         Method after;
         Method before;
