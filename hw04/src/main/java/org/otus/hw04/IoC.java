@@ -3,6 +3,9 @@ package org.otus.hw04;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class IoC {
     public static TestLoggingInterface createClass (){
@@ -11,18 +14,24 @@ public class IoC {
     }
 
     private static class LogInvocationHandler implements InvocationHandler{
-        public final TestLoggingImpl testLogging;
+        private final TestLoggingImpl testLogging;
+        private Set<String> methods;
 
         public LogInvocationHandler(TestLoggingImpl impl){
             this.testLogging = impl;
+            this.methods = new HashSet<>();
+            for(Method method : impl.getClass().getMethods()){
+                if (method.isAnnotationPresent(Log.class)){
+                    this.methods.add(method.getName());
+                }
+            }
         }
 
         @Override
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-            Method baseMethod = this.testLogging.getClass().getMethod(method.getName(), method.getParameterTypes());
-
-            if(baseMethod.isAnnotationPresent(Log.class)){
-                System.out.println("Method: " + method.getName() + getLineArgs(args));
+            String name = method.getName();
+            if(methods.contains(name)){
+                System.out.println("Method: " + name + getLineArgs(args));
             }
 
             return method.invoke(this.testLogging, args);
