@@ -12,6 +12,7 @@
     <modules>
         <module>hw02</module>
         <module>hw01</module>
+        <module>hw06</module>
     </modules>
 
     <properties>
