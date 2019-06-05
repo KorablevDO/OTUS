@@ -34,6 +34,7 @@ public class ATMIpl implements ATM {
     }
 
     private List<Banknote> getBanknotes(int value) throws BalanceException {
+        //TODO Optional, обработка на случай нула
         Map<Nominal, Integer> map = calculationOutput(value);
         return this.storage.getBanknotes(map);
     }

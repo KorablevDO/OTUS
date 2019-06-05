@@ -1,8 +1,34 @@
 package org.otus.hw07;
 
-public class MainClass {
-    public static void main(String[] args) {
+import org.otus.hw07.atm.ATM;
+import org.otus.hw07.atm.ATMFactori;
+import org.otus.hw07.atm.exception.ATMException;
 
+public class MainClass {
+    public static void main(String[] args) throws ATMException {
+        DepartmentATM departmentATM = new DepartmentATM();
+        ATM atm1 = ATMFactori.standartATM();
+        departmentATM.addATM(atm1);
+        ATM atm2 = ATMFactori.standartATM();
+        departmentATM.addATM(atm2);
+        ATM atm3 = ATMFactori.containerStorageATM();
+        departmentATM.addATM(atm3);
+        ATM atm4 = ATMFactori.containerStorageATM();
+        departmentATM.addATM(atm4);
+        System.out.printf("sum: " + departmentATM.getAllRemainingSumInATMs());
+
+        atm1.outputBanknote(1000);
+        atm2.outputBanknote(3500);
+        atm2.outputBanknote(350);
+        atm3.outputBanknote(1000);
+        atm4.outputBanknote(3500);
+        atm4.outputBanknote(350);
+
+
+        System.out.printf("sum: " + departmentATM.getAllRemainingSumInATMs());
+
+        departmentATM.restoreOriginalStateATMs();
+        System.out.printf("sum: " + departmentATM.getAllRemainingSumInATMs());
     }
 
     /**
