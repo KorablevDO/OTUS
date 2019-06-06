@@ -12,6 +12,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Класс использует паттерн мост для работы с алгоритмом расчета выдаваемой суммы.
+ */
 public class ATMIpl implements ATM {
     private Storage storage;
     private AlgorithmIssuingBanknotes algorithm;
@@ -34,7 +37,6 @@ public class ATMIpl implements ATM {
     }
 
     private List<Banknote> getBanknotes(int value) throws BalanceException {
-        //TODO Optional, обработка на случай нула
         Map<Nominal, Integer> map = calculationOutput(value);
         return this.storage.getBanknotes(map);
     }

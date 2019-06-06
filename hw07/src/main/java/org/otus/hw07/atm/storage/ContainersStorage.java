@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Применяю паттерн компоновщик для хранения банкнот
+ */
 public class ContainersStorage implements Storage{
     public Set<BanknotesСontainer> storage;
 

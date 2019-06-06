@@ -10,10 +10,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class ATMFactori {
+    //TODO Обернуть в билдер !!!
     public static ATM standartATM(){
         AlgorithmIssuingBanknotesImpl algorithmIssuingBanknotes = new AlgorithmIssuingBanknotesImpl();
         StorageImpl storage = new StorageImpl();
-        ATMIpl atm = new ATMIpl(storage, algorithmIssuingBanknotes);
+        ATM atm = new ATMWS(storage, algorithmIssuingBanknotes);
         atm.inputBanknote(
                 new BanknoteNominal10(), new BanknoteNominal10(), new BanknoteNominal10(), new BanknoteNominal10(), new BanknoteNominal10(),
                 new BanknoteNominal50(), new BanknoteNominal50(), new BanknoteNominal50(), new BanknoteNominal50(), new BanknoteNominal50(),
@@ -31,7 +32,7 @@ public class ATMFactori {
         set.add(new BanknotesСontainer(Nominal.NOMINAL_100));
         set.add(new BanknotesСontainer(Nominal.NOMINAL_500));
         ContainersStorage storage = new ContainersStorage(set);
-        ATMIpl atm = new ATMIpl(storage, algorithmIssuingBanknotes);
+        ATM atm = new ATMWS(storage, algorithmIssuingBanknotes);
         atm.inputBanknote(
                 new BanknoteNominal10(), new BanknoteNominal10(), new BanknoteNominal10(), new BanknoteNominal10(), new BanknoteNominal10(),
                 new BanknoteNominal50(), new BanknoteNominal50(), new BanknoteNominal50(), new BanknoteNominal50(), new BanknoteNominal50(),

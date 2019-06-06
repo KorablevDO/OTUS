@@ -23,10 +23,10 @@ public class MainClass {
 
         atm1.outputBanknote(1000);
         atm2.outputBanknote(3300);
-//        atm2.outputBanknote(350);
+        atm2.outputBanknote(350);
         atm3.outputBanknote(1000);
         atm4.outputBanknote(3300);
-//        atm4.outputBanknote(350);
+        atm4.outputBanknote(350);
 
 
         System.out.println("sum: " + departmentATM.getAllRemainingSumInATMs());
