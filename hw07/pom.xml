@@ -11,7 +11,7 @@
     </parent>
 
     <groupId>org.otus.hw07</groupId>
-    <artifactId>hw01</artifactId>
+    <artifactId>hw07</artifactId>
     <version>1.0-SNAPSHOT</version>
 
 

@@ -19,7 +19,7 @@ public class ContainersStorage implements Storage{
 
     @Override
     public void addBanknote(Banknote banknote) {
-        BanknotesСontainer container = (BanknotesСontainer) this.storage.stream().filter(banknote.getNominal()::equals);
+        BanknotesСontainer container = this.storage.stream().filter(p -> p.getNominal().equals(banknote.getNominal())).collect(Collectors.toList()).get(0);
         container.getBanknoteList().add(banknote);
     }
 
@@ -27,7 +27,7 @@ public class ContainersStorage implements Storage{
     public List<Banknote> getBanknotes(Map<Nominal, Integer> map) {
         List<Banknote> result = new ArrayList<>();
         for (var entry : map.entrySet()){
-            BanknotesСontainer container = (BanknotesСontainer) this.storage.stream().filter(entry.getKey()::equals);
+            BanknotesСontainer container =  this.storage.stream().filter(p -> p.getNominal().equals(entry.getKey())).collect(Collectors.toList()).get(0);
             List<Banknote> banknotes = container.getBanknoteList();
             addBanknoteInList(result, banknotes, entry.getValue());
         }
@@ -42,7 +42,7 @@ public class ContainersStorage implements Storage{
 
     @Override
     public int getBalance() {
-        return this.storage.stream().mapToInt(p -> p.getBanknoteList().size()).sum();
+        return this.storage.stream().mapToInt(p -> p.getBanknoteList().size()*p.getNominal().getValue()).sum();
     }
 
     @Override

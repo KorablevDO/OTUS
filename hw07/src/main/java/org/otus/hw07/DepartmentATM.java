@@ -14,7 +14,7 @@ public class DepartmentATM {
     }
 
     public int getAllRemainingSumInATMs(){
-        return 0;
+        return this.atms.stream().mapToInt(p ->p.getBalance()).sum();
     }
 
     public void restoreOriginalStateATMs(){
