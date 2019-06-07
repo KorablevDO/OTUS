@@ -16,8 +16,8 @@ import java.util.Map;
  * Класс использует паттерн мост для работы с алгоритмом расчета выдаваемой суммы.
  */
 public class ATMIpl implements ATM {
-    private Storage storage;
-    private AlgorithmIssuingBanknotes algorithm;
+    protected Storage storage;
+    protected AlgorithmIssuingBanknotes algorithm;
 
     public ATMIpl(Storage storage, AlgorithmIssuingBanknotes algorithm) {
         this.storage = storage;

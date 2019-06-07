@@ -11,10 +11,10 @@ import java.util.Set;
 
 public class ATMFactori {
     //TODO Обернуть в билдер !!!
-    public static ATM standartATM(){
+    public static ATMWS standartATM(){
         AlgorithmIssuingBanknotesImpl algorithmIssuingBanknotes = new AlgorithmIssuingBanknotesImpl();
         StorageImpl storage = new StorageImpl();
-        ATM atm = new ATMWS(storage, algorithmIssuingBanknotes);
+        ATMWS atm = new ATMWSImps(storage, algorithmIssuingBanknotes);
         atm.inputBanknote(
                 new BanknoteNominal10(), new BanknoteNominal10(), new BanknoteNominal10(), new BanknoteNominal10(), new BanknoteNominal10(),
                 new BanknoteNominal50(), new BanknoteNominal50(), new BanknoteNominal50(), new BanknoteNominal50(), new BanknoteNominal50(),
@@ -24,7 +24,7 @@ public class ATMFactori {
         return atm;
     }
 
-    public static ATM containerStorageATM(){
+    public static ATMWS containerStorageATM(){
         AlgorithmIssuingBanknotesImpl algorithmIssuingBanknotes = new AlgorithmIssuingBanknotesImpl();
         Set<BanknotesСontainer> set = new HashSet<>();
         set.add(new BanknotesСontainer(Nominal.NOMINAL_10));
@@ -32,7 +32,7 @@ public class ATMFactori {
         set.add(new BanknotesСontainer(Nominal.NOMINAL_100));
         set.add(new BanknotesСontainer(Nominal.NOMINAL_500));
         ContainersStorage storage = new ContainersStorage(set);
-        ATM atm = new ATMWS(storage, algorithmIssuingBanknotes);
+        ATMWS atm = new ATMWSImps(storage, algorithmIssuingBanknotes);
         atm.inputBanknote(
                 new BanknoteNominal10(), new BanknoteNominal10(), new BanknoteNominal10(), new BanknoteNominal10(), new BanknoteNominal10(),
                 new BanknoteNominal50(), new BanknoteNominal50(), new BanknoteNominal50(), new BanknoteNominal50(), new BanknoteNominal50(),
