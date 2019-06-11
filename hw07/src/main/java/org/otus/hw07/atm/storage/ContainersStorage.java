@@ -16,8 +16,7 @@ public class ContainersStorage implements Storage{
     public Set<BanknotesСontainer> storage;
 
     public ContainersStorage(Set<BanknotesСontainer> containers){
-        this.storage = new HashSet<>();
-        this.storage.addAll(containers);
+        this.storage = containers;
     }
 
     @Override
