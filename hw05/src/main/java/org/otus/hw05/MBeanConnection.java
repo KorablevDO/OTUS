@@ -22,12 +22,11 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class MBean {
+public class MBeanConnection {
     private static MBeanServerConnection serverConnection;
-    private static String path = "./hw05/statistics/";
 
     public static void main(String[] args) throws IOException, InterruptedException {
-        JMXServiceURL url = new JMXServiceURL("service:jmx:rmi:///jndi/rmi://127.1.1.1:1234/jmxrmi");
+        JMXServiceURL url = new JMXServiceURL("service:jmx:rmi:///jndi/rmi://localhost:1234/jmxrmi");
         JMXConnector connector = JMXConnectorFactory.connect(url);
         serverConnection = connector.getMBeanServerConnection();
         Set<ObjectName> beanSet = serverConnection.queryNames(null, null);
@@ -44,7 +43,10 @@ public class MBean {
             Thread.sleep(30000);
         }
 
-        out(buffer.toString(), path + "GarbageCollector.txt");
+        try (OutToFile outToFile = new OutToFile("GarbageCollector")){
+           outToFile.out(buffer.toString());
+        }
+
         connector.close();
     }
 
@@ -68,16 +70,5 @@ public class MBean {
             }
         }
         return statistics.toString();
-    }
-
-    private static void out(String line, String path) throws IOException {
-        File file = new File(path);
-        if(!file.exists()){
-            file.createNewFile();
-        }
-
-        FileWriter writer = new FileWriter(file, false);
-        writer.write(line);
-        writer.close();
     }
 }

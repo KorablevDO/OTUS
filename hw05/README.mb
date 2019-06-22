@@ -16,3 +16,80 @@
 !!! Сделать выводы !!!
 ЭТО САМАЯ ВАЖНАЯ ЧАСТЬ РАБОТЫ:
 Какой gc лучше и почему?
+
+-Dcom.sun.management.jmxremote
+-Dcom.sun.management.jmxremote.authenticate=false
+-Dcom.sun.management.jmxremote.port=1234
+-Dcom.sun.management.jmxremote.ssl=false
+
+Serial Collector -XX:+UseSerialGC - редко очищает , долго копится , растет утилизация памяти, быстро переходят в старые
+Parallel Collector -XX:+UseParallelGC - часто очишает, медленнее растет память, позже возникнить аут оф мемори, быстро переходят в старые
+CMS -XX:+UseConcMarkSweepGC - часто чистит, больше  чистит, более стабильный, мене заметно растет объем памяти позже будет аут, быстро переходят в старые
+G1 -XX:+UseG1GC - очищает большими порциями, либо почучуть, в системе висит много занятой памяти, плохо подходит для малого количества памяти, долгий переход встарую часть памяти
+ZGC -XX:+UnlockExperimentalVMOptions -XX:+UseZGC -
+
+Error: VM option 'UseZGC' is experimental and must be enabled via -XX:+UnlockExperimentalVMOptions.
+Error: The unlock option must precede 'UseZGC'.
+Error: Could not create the Java Virtual Machine.
+Error: A fatal exception has occurred. Program will exit.
+
+Error occurred during initialization of VM
+Option -XX:+UseZGC not supported
+
+Для работы с MBeanConnection запускал приложение GetErrorOutOfMemory с VM options:
+-Dcom.sun.management.jmxremote
+-Dcom.sun.management.jmxremote.authenticate=false
+-Dcom.sun.management.jmxremote.port=1234
+-Dcom.sun.management.jmxremote.ssl=false
+
+Предусловие:
+jdk-11.0.2
+Total physical memory: 16 643 388 kbytes
+Проект с утечкой памяти, до OutOfMemoryError не доводил, время жизни приложения 20 минут.
+Для вывода брал последний полученный результат.
+
+Выводы:
+Serial Collector:
+В приложениях надо следить за отсутствием утечки памяти, быстрее произойдёт  ошибка OutOfMemoryError.
+name: Copy
+count: 2998
+time: 50076
+name: MarkSweepCompact
+count: 997
+time: 61460
+
+Parallel Collector:
+Считаю подойдет для задач где много долго играющих объектов и для приложений на машинах у которых немного памяти. Срабатывает чаще всех
+Думаю для домашних проектов он лучше подходит.
+name: PS MarkSweep
+count: 64
+time: 6606
+name: PS Scavenge
+count: 2981
+time: 117313
+
+CMS:
+Лучше подходит для приложений где много мало живущих объектов, он чаще их чистит что позволить меньше просидат по затратам на память.
+Сильно афектит на систему.
+name: ParNew
+count: 8234
+time: 610757
+name: ConcurrentMarkSweep
+count: 512
+time: 26131
+
+G1:
+Данный GC лучше подойдёт для работы с долго живущими приложениями, большие проекты на домашнем компьютере  плохо себя будут чувствовать, память долго занята.
+Сильно аффектит на систему.
+name: G1 Young Generation
+count: 2106
+time: 44748
+name: G1 Old Generation
+count: 0
+time: 0
+
+ZGC:
+Получил ошибку - Error occurred during initialization of VM
+                 Option -XX:+UseZGC not supported
+
+Выводы считаю крайне поверхностными, по хорошему надо собрать статистику с графиками работы GC, и графиками Heap.

@@ -10,7 +10,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>org.otus.hw02</groupId>
+    <groupId>org.otus.hw04</groupId>
     <artifactId>hw04</artifactId>
     <version>1.0-SNAPSHOT</version>
 
