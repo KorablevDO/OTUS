@@ -16,10 +16,10 @@ public class ATMFactori {
         StorageImpl storage = new StorageImpl();
         ATMWS atm = new ATMWSImps(storage, algorithmIssuingBanknotes);
         atm.inputBanknote(
-                new BanknoteNominal10(), new BanknoteNominal10(), new BanknoteNominal10(), new BanknoteNominal10(), new BanknoteNominal10(),
-                new BanknoteNominal50(), new BanknoteNominal50(), new BanknoteNominal50(), new BanknoteNominal50(), new BanknoteNominal50(),
-                new BanknoteNominal100(), new BanknoteNominal100(), new BanknoteNominal100(), new BanknoteNominal100(), new BanknoteNominal100(),
-                new BanknoteNominal500(), new BanknoteNominal500(), new BanknoteNominal500(), new BanknoteNominal500(), new BanknoteNominal500()
+                new BanknoteImpl(Nominal.NOMINAL_10), new BanknoteImpl(Nominal.NOMINAL_10), new BanknoteImpl(Nominal.NOMINAL_10), new BanknoteImpl(Nominal.NOMINAL_10), new BanknoteImpl(Nominal.NOMINAL_10),
+                new BanknoteImpl(Nominal.NOMINAL_50), new BanknoteImpl(Nominal.NOMINAL_50), new BanknoteImpl(Nominal.NOMINAL_50), new BanknoteImpl(Nominal.NOMINAL_50), new BanknoteImpl(Nominal.NOMINAL_50),
+                new BanknoteImpl(Nominal.NOMINAL_100), new BanknoteImpl(Nominal.NOMINAL_100), new BanknoteImpl(Nominal.NOMINAL_100), new BanknoteImpl(Nominal.NOMINAL_100), new BanknoteImpl(Nominal.NOMINAL_100),
+                new BanknoteImpl(Nominal.NOMINAL_500), new BanknoteImpl(Nominal.NOMINAL_500), new BanknoteImpl(Nominal.NOMINAL_500), new BanknoteImpl(Nominal.NOMINAL_500), new BanknoteImpl(Nominal.NOMINAL_500)
         );
         return atm;
     }
