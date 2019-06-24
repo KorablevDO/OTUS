@@ -47,4 +47,9 @@ public class AlgorithmIssuingBanknotesImpl implements AlgorithmIssuingBanknotes 
         revers.putAll(map);
         return revers;
     }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 }

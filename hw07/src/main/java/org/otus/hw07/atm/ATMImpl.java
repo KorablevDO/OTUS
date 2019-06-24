@@ -15,11 +15,11 @@ import java.util.Map;
 /**
  * Класс использует паттерн мост для работы с алгоритмом расчета выдаваемой суммы.
  */
-public class ATMIpl implements ATM {
+public class ATMImpl implements ATM {
     protected Storage storage;
     protected AlgorithmIssuingBanknotes algorithm;
 
-    public ATMIpl(Storage storage, AlgorithmIssuingBanknotes algorithm) {
+    public ATMImpl(Storage storage, AlgorithmIssuingBanknotes algorithm) {
         this.storage = storage;
         this.algorithm = algorithm;
     }

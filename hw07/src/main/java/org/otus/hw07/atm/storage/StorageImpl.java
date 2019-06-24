@@ -6,7 +6,7 @@ import org.otus.hw07.atm.banknote.Nominal;
 
 import java.util.*;
 
-public class StorageImpl implements Storage {
+public class StorageImpl implements Storage, Cloneable {
     private Map<Nominal, List<Banknote>> listMap;
 
     public StorageImpl() {
@@ -49,5 +49,11 @@ public class StorageImpl implements Storage {
             nominal.put((Nominal) entry.getKey(), list.size());
         }
         return nominal;
+    }
+
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }

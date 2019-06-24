@@ -14,7 +14,7 @@ public class ATMFactori {
     public static ATMWS standartATM(){
         AlgorithmIssuingBanknotesImpl algorithmIssuingBanknotes = new AlgorithmIssuingBanknotesImpl();
         StorageImpl storage = new StorageImpl();
-        ATMWS atm = new ATMWSImps(storage, algorithmIssuingBanknotes);
+        ATMWS atm = new ATMWSImpl(storage, algorithmIssuingBanknotes);
         atm.inputBanknote(
                 new BanknoteImpl(Nominal.NOMINAL_10), new BanknoteImpl(Nominal.NOMINAL_10), new BanknoteImpl(Nominal.NOMINAL_10), new BanknoteImpl(Nominal.NOMINAL_10), new BanknoteImpl(Nominal.NOMINAL_10),
                 new BanknoteImpl(Nominal.NOMINAL_50), new BanknoteImpl(Nominal.NOMINAL_50), new BanknoteImpl(Nominal.NOMINAL_50), new BanknoteImpl(Nominal.NOMINAL_50), new BanknoteImpl(Nominal.NOMINAL_50),
@@ -32,7 +32,7 @@ public class ATMFactori {
         set.add(new BanknotesСontainer(Nominal.NOMINAL_100));
         set.add(new BanknotesСontainer(Nominal.NOMINAL_500));
         ContainersStorage storage = new ContainersStorage(set);
-        ATMWS atm = new ATMWSImps(storage, algorithmIssuingBanknotes);
+        ATMWS atm = new ATMWSImpl(storage, algorithmIssuingBanknotes);
         atm.inputBanknote(
                 new BanknoteNominal10(), new BanknoteNominal10(), new BanknoteNominal10(), new BanknoteNominal10(), new BanknoteNominal10(),
                 new BanknoteNominal50(), new BanknoteNominal50(), new BanknoteNominal50(), new BanknoteNominal50(), new BanknoteNominal50(),

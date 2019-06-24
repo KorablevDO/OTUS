@@ -13,7 +13,11 @@ public class DepartmentATM {
 
     public void addATM(ATMWS atm){
         this.atms.add(atm);
-        this.backup.add(atm.createSnapshotATM());
+        try {
+            this.backup.add(atm.createSnapshotATM());
+        } catch (CloneNotSupportedException e) {
+            System.err.println(e.toString());
+        }
     }
 
     public int getAllRemainingSumInATMs(){

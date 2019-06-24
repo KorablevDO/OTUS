@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 /**
  * Применяю паттерн компоновщик для хранения банкнот
  */
-public class ContainersStorage implements Storage{
+public class ContainersStorage implements Storage, Cloneable{
     public Set<BanknotesСontainer> storage;
 
     public ContainersStorage(Set<BanknotesСontainer> containers){
@@ -50,5 +50,11 @@ public class ContainersStorage implements Storage{
     @Override
     public Map<Nominal, Integer> getContentsInfo() {
         return this.storage.stream().collect(Collectors.toMap(p->p.getNominal(),p->p.getBanknoteList().size()));
+    }
+
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }

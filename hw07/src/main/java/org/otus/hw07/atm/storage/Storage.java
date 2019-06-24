@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public interface Storage {
+public interface Storage extends Cloneable{
     public void addBanknote(Banknote banknote);
 
     public List<Banknote> getBanknotes(Map<Nominal, Integer> map);
@@ -17,4 +17,6 @@ public interface Storage {
     public int getBalance();
 
     public Map<Nominal, Integer> getContentsInfo();
+
+    public Object clone() throws CloneNotSupportedException;
 }

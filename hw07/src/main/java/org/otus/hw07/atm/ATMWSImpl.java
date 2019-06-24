@@ -19,8 +19,8 @@ import java.util.Optional;
 /**
  * Применяю паттерн Декоратор, для расширения функционала класса ATM
  */
-public class ATMWSImps extends ATMIpl implements ATMWS {
-    public ATMWSImps(Storage storage, AlgorithmIssuingBanknotes algorithm) {
+public class ATMWSImpl extends ATMImpl implements ATMWS {
+    public ATMWSImpl(Storage storage, AlgorithmIssuingBanknotes algorithm) {
         super(storage, algorithm);
     }
 

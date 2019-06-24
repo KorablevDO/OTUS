@@ -10,7 +10,7 @@ import java.util.List;
 /**
  *
  */
-public class BanknotesСontainer {
+public class BanknotesСontainer implements Cloneable{
     private final Nominal nominal;
     private List<Banknote> banknoteList;
 
@@ -37,5 +37,10 @@ public class BanknotesСontainer {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }

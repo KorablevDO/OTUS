@@ -12,5 +12,5 @@ public interface ATMWS extends ATM {
 
     public void setAlgorithm(AlgorithmIssuingBanknotes algorithm);
 
-    public SnapshotATM createSnapshotATM();
+    public SnapshotATM createSnapshotATM() throws CloneNotSupportedException;
 }
