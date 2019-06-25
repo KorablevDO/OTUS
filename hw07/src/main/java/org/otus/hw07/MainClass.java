@@ -1,39 +1,15 @@
 package org.otus.hw07;
 
-import org.otus.hw07.atm.ATM;
-import org.otus.hw07.atm.ATMFactori;
-import org.otus.hw07.atm.ATMWS;
-import org.otus.hw07.atm.exception.ATMException;
+import org.otus.hw07.atm.ATMWSImpl;
+import org.otus.hw07.atm.algorithm.AlgorithmIssuingBanknotesImpl;
+import org.otus.hw07.atm.storage.StorageImpl;
 
 public class MainClass {
-    public static void main(String[] args) throws ATMException {
+    public static void main(String[] args) {
         DepartmentATM departmentATM = new DepartmentATM();
-        ATMWS atm1 = ATMFactori.standartATM();
-        departmentATM.addATM(atm1);
-        System.out.println("atm1: " + atm1.getBalance());
-        ATMWS atm2 = ATMFactori.standartATM();
-        departmentATM.addATM(atm2);
-        System.out.println("atm2: " + atm2.getBalance());
-        ATMWS atm3 = ATMFactori.containerStorageATM();
-        departmentATM.addATM(atm3);
-        System.out.println("atm3: " + atm3.getBalance());
-        ATMWS atm4 = ATMFactori.containerStorageATM();
-        departmentATM.addATM(atm4);
-        System.out.println("atm4: " + atm4.getBalance());
-        System.out.println("sum: " + departmentATM.getAllRemainingSumInATMs());
-
-        atm1.outputBanknote(1000);
-        atm2.outputBanknote(3300);
-//        atm2.outputBanknote(350);
-        atm3.outputBanknote(1000);
-        atm4.outputBanknote(3300);
-//        atm4.outputBanknote(350);
-
-
-        System.out.println("sum: " + departmentATM.getAllRemainingSumInATMs());
-
+        departmentATM.addATM(new ATMWSImpl(new StorageImpl(), new AlgorithmIssuingBanknotesImpl()));
+        System.out.println(departmentATM.getAllRemainingSumInATMs());
         departmentATM.restoreOriginalStateATMs();
-        System.out.println("sum: " + departmentATM.getAllRemainingSumInATMs());
     }
 
     /**

@@ -8,20 +8,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DepartmentATM {
-    private List<ATMWS> atms = new ArrayList<>();
-    private List<SnapshotATM> backup = new ArrayList<>();
+    private List<ATMWS> atmList;
+    private List<SnapshotATM> backup;
+
+    {
+        this.atmList = new ArrayList<>();
+        this.backup = new ArrayList<>();
+    }
 
     public void addATM(ATMWS atm){
-        this.atms.add(atm);
-        try {
-            this.backup.add(atm.createSnapshotATM());
-        } catch (CloneNotSupportedException e) {
-            System.err.println(e.toString());
-        }
+        this.atmList.add(atm);
+        this.backup.add(atm.createSnapshotATM());
     }
 
     public int getAllRemainingSumInATMs(){
-        return this.atms.stream().mapToInt(ATM::getBalance).sum();
+       return  this.atmList.stream().mapToInt(ATMWS::getBalance).sum();
     }
 
     public void restoreOriginalStateATMs(){
