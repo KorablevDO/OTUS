@@ -2,12 +2,12 @@ package org.otus.hw07;
 
 import org.otus.hw07.atm.ATMWSImpl;
 import org.otus.hw07.atm.algorithm.AlgorithmIssuingBanknotesImpl;
-import org.otus.hw07.atm.storage.StorageImpl;
+import org.otus.hw07.atm.storage.ContainerStorageImpl;
 
 public class MainClass {
     public static void main(String[] args) {
         DepartmentATM departmentATM = new DepartmentATM();
-        departmentATM.addATM(new ATMWSImpl(new StorageImpl(), new AlgorithmIssuingBanknotesImpl()));
+        departmentATM.addATM(new ATMWSImpl(new ContainerStorageImpl(null), new AlgorithmIssuingBanknotesImpl()));
         System.out.println(departmentATM.getAllRemainingSumInATMs());
         departmentATM.restoreOriginalStateATMs();
     }

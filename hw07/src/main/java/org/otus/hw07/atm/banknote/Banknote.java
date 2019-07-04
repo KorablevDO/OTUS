@@ -1,4 +1,13 @@
 package org.otus.hw07.atm.banknote;
 
-public interface Banknote {
+public class Banknote {
+    private int nominal;
+
+    public Banknote(int nominal){
+        this.nominal = nominal;
+    }
+
+    public int getNominal() {
+        return this.nominal;
+    }
 }

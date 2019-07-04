@@ -3,6 +3,7 @@ package org.otus.hw07.atm;
 import org.otus.hw07.atm.algorithm.AlgorithmIssuingBanknotes;
 import org.otus.hw07.atm.banknote.Banknote;
 import org.otus.hw07.atm.exception.ATMException;
+import org.otus.hw07.atm.exception.StorageException;
 import org.otus.hw07.atm.storage.Storage;
 
 import java.util.Arrays;
@@ -19,7 +20,14 @@ public class ATMWSImpl implements ATMWS {
 
     @Override
     public void inputBanknote(Banknote... banknote) {
-        Arrays.stream(banknote).forEach(b -> this.storage.addBanknote(b));
+        Arrays.stream(banknote).forEach(b -> {
+            try {
+                this.storage.addBanknote(b);
+            } catch (StorageException e) {
+                e.printStackTrace();
+                //TODO !!!!!!!!!!
+            }
+        });
     }
 
     @Override
