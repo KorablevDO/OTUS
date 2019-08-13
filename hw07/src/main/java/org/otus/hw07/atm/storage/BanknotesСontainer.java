@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BanknotesСontainer {
-    private int formatNominal;
+    private final int formatNominal;
     private List<Banknote> list;
 
     public BanknotesСontainer(int nominal){
@@ -27,6 +27,10 @@ public class BanknotesСontainer {
         } else {
             throw new BanknotesContainerException("Set is not valid formatNominal banknote");
         }
+    }
+
+    public int getNominal(){
+        return this.formatNominal;
     }
 
     public Banknote removeBanknote(){

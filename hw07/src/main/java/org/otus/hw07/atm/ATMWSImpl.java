@@ -8,6 +8,7 @@ import org.otus.hw07.atm.storage.Storage;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Map;
 
 public class ATMWSImpl implements ATMWS {
     private Storage storage;
@@ -19,15 +20,10 @@ public class ATMWSImpl implements ATMWS {
     }
 
     @Override
-    public void inputBanknote(Banknote... banknote) {
-        Arrays.stream(banknote).forEach(b -> {
-            try {
-                this.storage.addBanknote(b);
-            } catch (StorageException e) {
-                e.printStackTrace();
-                //TODO !!!!!!!!!!
-            }
-        });
+    public void inputBanknote(Banknote... banknotes) throws ATMException {
+        for(Banknote banknote : banknotes){
+            this.storage.addBanknote(banknote);
+        }
     }
 
     @Override
@@ -42,7 +38,8 @@ public class ATMWSImpl implements ATMWS {
 
     @Override
     public Collection<Banknote> outputBanknote(int value) throws ATMException {
-        return null;
+        Map<Integer, Integer> payment = this.algorithm.getPayment(value, this.storage.getContentsInfo());
+        return this.storage.getBanknotes(payment);
     }
 
     @Override

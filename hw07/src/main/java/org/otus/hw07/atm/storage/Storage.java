@@ -10,7 +10,7 @@ import java.util.Map;
 public interface Storage {
     public void addBanknote(Banknote banknote) throws StorageException;
 
-    public List<Banknote> getBanknotes();
+    public List<Banknote> getBanknotes(Map<Integer, Integer> map);
 
     public int getBalance();
 

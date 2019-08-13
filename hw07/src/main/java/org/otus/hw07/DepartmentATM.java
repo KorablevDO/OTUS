@@ -1,11 +1,11 @@
 package org.otus.hw07;
 
-import org.otus.hw07.atm.ATM;
 import org.otus.hw07.atm.ATMWS;
 import org.otus.hw07.atm.SnapshotATM;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DepartmentATM {
     private List<ATMWS> atmList;
@@ -13,16 +13,18 @@ public class DepartmentATM {
 
     {
         this.atmList = new ArrayList<>();
-        this.backup = new ArrayList<>();
     }
 
     public void addATM(ATMWS atm){
         this.atmList.add(atm);
-        this.backup.add(atm.createSnapshotATM());
+    }
+
+    public void createSnapshotATMs(){
+        this.backup = this.atmList.stream().map(ATMWS::createSnapshotATM).collect(Collectors.toList());
     }
 
     public int getAllRemainingSumInATMs(){
-       return  this.atmList.stream().mapToInt(ATMWS::getBalance).sum();
+       return this.atmList.stream().mapToInt(ATMWS::getBalance).sum();
     }
 
     public void restoreOriginalStateATMs(){
